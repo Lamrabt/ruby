@@ -7,8 +7,10 @@ if (nombre > 25)
   puts "déso le max c'est 25"
 elsif (nombre < 1)
     puts "Déso le min c'est 1"
+    
 elsif (nombre == i)
   puts "c'est pas une pyramide ça"
+  puts etage
 else
   puts "Oh! une piramide"
 while (i <= nombre)
