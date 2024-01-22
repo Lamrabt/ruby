@@ -8,13 +8,13 @@ def court(compte)
     puts compte.min_by(&:length)
 end
 def plus5(compte)
-    puts compte.find_all { |l| l.size > 4}.length
+    puts compte.find_all { |l| l.size == 6}.length
 end
 def maj(compte)
     puts compte.select {|e| e =~ /^@[A-Z]/ }.length
 end
 def ordre(compte)
-    print compte.sort
+    print compte.sort_by{|l| l.downcase}
 end
 def taille(compte)
     print compte.sort_by {|x| x.length}
