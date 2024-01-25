@@ -1,0 +1,42 @@
+require 'dotenv'
+require 'http'
+require 'json'
+require 'pry'
+Dotenv.load('.env')
+
+api_key = ENV["OPENAI_API"]
+url = "https://api.openai.com/v1/completions"
+
+
+headers = {
+  "Content-Type" => "application/json",
+  "Authorization" => "Bearer #{api_key}"
+}
+conversation_history = ""
+loop do
+    # Demander à l'utilisateur de saisir un message
+    print "Vous: "
+    
+
+    # Sortir de la boucle si l'utilisateur saisit "exit"
+    
+
+
+    # Concaténer l'historique pour créer le prompt
+    prompt = conversation_history + gets.chomp
+
+    data = {
+        "model" => "gpt-3.5-turbo-instruct",
+        "prompt" => prompt,
+        "max_tokens" => 500,
+        "temperature" => 0,
+    }
+
+    response = HTTP.post(url, headers: headers, body: data.to_json)
+    response_body = JSON.parse(response.body.to_s)
+    response_string = response_body['choices'][0]['text'].strip
+    conversation_history = conversation_history + response_string
+    print "IA: "
+    puts response_string
+    break if prompt == 'exit'
+end
